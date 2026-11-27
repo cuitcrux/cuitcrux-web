@@ -7,12 +7,11 @@ import MusicControl from "./MusicControl";
 import IntroScreen from "./IntroScreen";
 import BirthdayReveal from "./BirthdayReveal";
 import LoveLetter from "./LoveLetter";
-import MemoryGallery from "./MemoryGallery";
 import ReasonsSection from "./ReasonsSection";
 import InteractiveQuestion from "./InteractiveQuestion";
 import FinalScreen from "./FinalScreen";
 
-const TOTAL = 7;
+const TOTAL = 6;
 export default function BirthdayExperience() {
   const [stage, setStage] = useState(0);
   const [run, setRun] = useState(0);
@@ -23,8 +22,12 @@ export default function BirthdayExperience() {
   const next = () => setStage((s) => Math.min(s + 1, TOTAL - 1));
   const replay = () => { setStage(0); setRun((r) => r + 1); };
   const screens = [
-    <IntroScreen key="0" onOpen={play} onNext={next} />, <BirthdayReveal key="1" onNext={next} />, <LoveLetter key="2" onNext={next} />,
-    <MemoryGallery key="3" onNext={next} />, <ReasonsSection key="4" onNext={next} />, <InteractiveQuestion key="5" onNext={next} />, <FinalScreen key="6" onReplay={replay} />,
+    <IntroScreen key="0" onOpen={play} onNext={next} />,
+    <BirthdayReveal key="1" onNext={next} />,
+    <LoveLetter key="2" onNext={next} />,
+    <ReasonsSection key="3" onNext={next} />,
+    <InteractiveQuestion key="4" onNext={next} />,
+    <FinalScreen key="5" onReplay={replay} />,
   ];
   return (
     <main className="fixed inset-0 overflow-hidden bg-gradient-to-b from-cream via-blush to-lavender/70">

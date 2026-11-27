@@ -13,7 +13,7 @@ export default function LoveLetter({ onNext }: { onNext: () => void }) {
         <p className="whitespace-pre-line font-serif text-lg leading-8">{b.letter.slice(0, n)}{!done && <span className="animate-glow">|</span>}</p>
         {done && <p className="mt-6 text-right font-hand text-4xl text-ruby">{b.signature}</p>}
       </div>
-      <button className="btn" onClick={onNext}>{done ? "See our memories ✨" : "Skip ahead"}</button>
+      <button className="btn" onClick={onNext}>{done ? "Why I love you 💗" : "Skip ahead"}</button>
     </div>
   );
 }

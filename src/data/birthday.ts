@@ -8,15 +8,6 @@ export const birthday = {
   letter:
     "Happy birthday to the person who somehow makes even the most ordinary days feel special.\n\nI wish I could wrap up all the happiness you bring me and give it back to you today. You deserve love, laughter, peace, little adventures, big dreams and all the beautiful things this world has to offer.\n\nThank you for being you. And if I could choose again, I would still choose you.",
   signature: "Yours always ❤️",
-  // Put photos in /public/memories and reference them as "/memories/1.jpg". Leave src empty for a placeholder.
-  memories: [
-    { src: "", caption: "The day it all felt easy" },
-    { src: "", caption: "Our favourite kind of chaos" },
-    { src: "", caption: "You, laughing. Me, staring." },
-    { src: "", caption: "Somewhere we didn't want to leave" },
-    { src: "", caption: "Just another perfect day" },
-    { src: "", caption: "My favourite photo of us" },
-  ],
   reasons: [
     "Your smile", "Your laugh", "The way you care about the little things",
     "The way you make ordinary moments memorable", "Your kindness",

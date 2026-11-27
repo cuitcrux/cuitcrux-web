@@ -35,7 +35,7 @@ export default function BirthdayExperience() {
         <motion.div className="h-full rounded-r bg-ruby" animate={{ width: `${((stage + 1) / TOTAL) * 100}%` }} />
       </div>
       <FloatingHearts />
-      <audio ref={audio} src={birthday.musicUrl} loop preload="none" />
+      <audio ref={audio} src={birthday.musicUrl} loop preload="auto" />
       <MusicControl playing={playing} onToggle={toggle} />
       <AnimatePresence mode="wait">
         <motion.div key={`${run}-${stage}`} className="pt-safe-x absolute inset-0 overflow-y-auto overflow-x-hidden"

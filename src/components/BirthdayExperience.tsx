@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { birthday } from "@/data/birthday";
 import FloatingHearts from "./FloatingHearts";
@@ -17,8 +17,46 @@ export default function BirthdayExperience() {
   const [run, setRun] = useState(0);
   const [playing, setPlaying] = useState(false);
   const audio = useRef<HTMLAudioElement>(null);
-  const play = useCallback(() => { audio.current?.play().then(() => setPlaying(true)).catch(() => setPlaying(false)); }, []);
-  const toggle = useCallback(() => { const a = audio.current; if (!a) return; if (a.paused) play(); else { a.pause(); setPlaying(false); } }, [play]);
+
+  const play = useCallback(() => {
+    const a = audio.current;
+    if (!a) return;
+    a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+  }, []);
+
+  const toggle = useCallback(() => {
+    const a = audio.current;
+    if (!a) return;
+    if (a.paused) {
+      play();
+    } else {
+      a.pause();
+      setPlaying(false);
+    }
+  }, [play]);
+
+  // Attempt default sound playback upon opening
+  useEffect(() => {
+    const a = audio.current;
+    if (!a) return;
+
+    // Try playing immediately on page load
+    a.play()
+      .then(() => setPlaying(true))
+      .catch(() => {
+        // If autoplay is blocked by browser policy without user gesture,
+        // unlock and start audio on the first tap/click anywhere
+        const unlock = () => {
+          if (a.paused) {
+            a.play().then(() => setPlaying(true)).catch(() => {});
+          }
+        };
+        window.addEventListener("pointerdown", unlock, { once: true });
+        window.addEventListener("touchstart", unlock, { once: true });
+        window.addEventListener("keydown", unlock, { once: true });
+      });
+  }, []);
+
   const next = () => setStage((s) => Math.min(s + 1, TOTAL - 1));
   const replay = () => { setStage(0); setRun((r) => r + 1); };
   const screens = [
@@ -35,7 +73,15 @@ export default function BirthdayExperience() {
         <motion.div className="h-full rounded-r bg-ruby" animate={{ width: `${((stage + 1) / TOTAL) * 100}%` }} />
       </div>
       <FloatingHearts />
-      <audio ref={audio} src={birthday.musicUrl} loop preload="auto" />
+      <audio
+        ref={audio}
+        src={birthday.musicUrl}
+        loop
+        preload="auto"
+        autoPlay
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+      />
       <MusicControl playing={playing} onToggle={toggle} />
       <AnimatePresence mode="wait">
         <motion.div key={`${run}-${stage}`} className="pt-safe-x absolute inset-0 overflow-y-auto overflow-x-hidden"

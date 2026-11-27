@@ -1,0 +1,10 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+html,body{height:100%;overflow-x:hidden;scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{@apply font-sans text-wine bg-cream}
+@layer components{
+  .btn{@apply min-h-[48px] rounded-full bg-ruby px-8 py-3 text-base font-medium text-white shadow-lg shadow-ruby/30 transition active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine}
+  .btn-soft{@apply btn bg-white/70 text-wine shadow-rose/30 backdrop-blur}
+  .screen{@apply flex min-h-full flex-col items-center justify-center gap-6 px-6 py-20 text-center}
+  .pt-safe-x{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
